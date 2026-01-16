@@ -17,7 +17,6 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         
-        // 1. Logika Filter Bulan & Tahun
         $filterDate = $request->input('filter_date', Carbon::now()->format('Y-m'));
         try {
             $carbonDate = Carbon::createFromFormat('Y-m', $filterDate);
@@ -29,9 +28,6 @@ class DashboardController extends Controller
         $tahun = $carbonDate->year;
         $excludedStatuses = ['terjual', 'hilang'];
 
-        /* ==========================================================
-        ASET
-        ========================================================== */
         $totalHargaBeliAset = (int) Aset::sum('harga_beli');
         $totalKeuntunganAset = (int) Aset::where('harga_jual', '>', 0)
             ->selectRaw('SUM(harga_jual - harga_beli) as total')
@@ -50,9 +46,6 @@ class DashboardController extends Controller
             return $item;
         });
 
-        /* ==========================================================
-        SAHAM
-        ========================================================== */
         $totalHargaBeliSaham = (int) Saham::sum('harga_beli');
         $totalKeuntunganSaham = (int) Saham::where('harga_jual', '>', 0)
             ->selectRaw('SUM(harga_jual - harga_beli) as total')
@@ -71,9 +64,6 @@ class DashboardController extends Controller
             return $item;
         });
 
-        /* ==========================================================
-           INCOME
-           ========================================================== */
         $totalPemasukanIncome = (int) Income::sum('pemasukan');
         $totalPengeluaranIncome = (int) Income::sum('pengeluaran');
 
@@ -90,9 +80,6 @@ class DashboardController extends Controller
             ];
         })->values();
 
-        /* ==========================================================
-           MAINTENANCE
-           ========================================================== */
         $totalPemasukanMaintenance = (int) Maintenance::sum('pemasukan');
         $totalPengeluaranMaintenance = (int) Maintenance::sum('pengeluaran');
 
@@ -109,9 +96,6 @@ class DashboardController extends Controller
             ];
         })->values();
 
-        /* ==========================================================
-           SAVING
-           ========================================================== */
         $totalPemasukanSaving = (int) Saving::sum('pemasukan');
         $totalPengeluaranSaving = (int) Saving::sum('pengeluaran');
 

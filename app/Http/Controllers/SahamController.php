@@ -44,7 +44,6 @@ class SahamController extends Controller
             ['value' => $cleanSaldo]
         );
 
-        // Memanggil NAMA route (saham.index), bukan path-nya
         return redirect()->route('saham.index')->with('success', 'Saldo berhasil diperbarui!');
     }
 

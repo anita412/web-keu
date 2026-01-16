@@ -143,7 +143,7 @@
         }    
         let format = angka.toLocaleString('id-ID', {
             minimumFractionDigits: 0
-        }).replace('Rp', '').trim();                                      
+        }).replace('Rp', '').trim(); 
         input.value = format;
     }
 </script>

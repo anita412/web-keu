@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     public function login() {
-        // Jika user sudah login tapi coba buka halaman login lagi, lempar ke dashboard
         if (Auth::check()) {
             return redirect('/dashboard');
         }
@@ -22,17 +21,14 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
-        // Tambahkan fitur 'remember' agar session tidak cepat habis
         $remember = $request->has('remember');
 
         if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
             
-            // intended() sangat penting agar user kembali ke halaman yang mereka klik sebelumnya
             return redirect()->intended('/dashboard');
         }
 
-        // WAJIB: Jika gagal, harus dikembalikan ke halaman login dengan pesan error
         return back()->withErrors([
             'email' => 'Email atau password yang Anda masukkan salah.',
         ])->onlyInput('email');

@@ -44,7 +44,6 @@ class AsetController extends Controller
             ['value' => $cleanSaldo]
         );
 
-        // Memanggil NAMA route (aset.index), bukan path-nya
         return redirect()->route('aset.index')->with('success', 'Saldo berhasil diperbarui!');
     }
 

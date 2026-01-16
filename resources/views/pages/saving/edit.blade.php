@@ -142,7 +142,7 @@
         if (isNaN(angka)) {
             input.value = input.value.replace(/[^0-9]/g, '');
             return;
-        }    
+        } 
         let format = angka.toLocaleString('id-ID', {
             minimumFractionDigits: 0
         }).replace('Rp', '').trim(); 
